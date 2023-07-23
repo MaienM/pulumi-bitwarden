@@ -1,0 +1,1321 @@
+{
+    "name": "bitwarden",
+    "displayName": "bitwarden",
+    "description": "A Pulumi package for creating and managing a bitwarden application.",
+    "keywords": [
+        "pulumi",
+        "bitwarden",
+        "category/infrastructure"
+    ],
+    "homepage": "https://github.com/MaienM/pulumi-bitwarden",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`bitwarden` Terraform Provider](https://github.com/maxlaverse/terraform-provider-bitwarden).",
+    "repository": "https://github.com/MaienM/pulumi-bitwarden",
+    "logoUrl": "https://raw.githubusercontent.com/MaienM/pulumi-bitwarden/main/docs/bitwarden.png",
+    "pluginDownloadURL": "github://api.github.com/MaienM/pulumi-bitwarden",
+    "publisher": "MaienM",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "rootNamespace": "MaienM"
+        },
+        "go": {
+            "generateExtraInputTypes": true,
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden"
+        },
+        "java": {
+            "basePackage": "com.maienm",
+            "buildFiles": "",
+            "gradleNexusPublishPluginVersion": ""
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing a bitwarden application.",
+            "packageName": "@maienm/pulumi-bitwarden",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/maxlaverse/terraform-provider-bitwarden)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-bitwarden` repo](https://github.com/MaienM/pulumi-bitwarden/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-bitwarden` repo](https://github.com/maxlaverse/terraform-provider-bitwarden/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "packageName": "pulumi_bitwarden",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/maxlaverse/terraform-provider-bitwarden)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-bitwarden` repo](https://github.com/MaienM/pulumi-bitwarden/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-bitwarden` repo](https://github.com/maxlaverse/terraform-provider-bitwarden/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    },
+    "config": {
+        "variables": {
+            "clientId": {
+                "type": "string",
+                "description": "Client ID.\n"
+            },
+            "clientSecret": {
+                "type": "string",
+                "description": "Client Secret. Do not commit this information in Git unless you know what you're doing. Prefer using a Terraform\n`variable {}` in order to inject this value from the environment.\n"
+            },
+            "email": {
+                "type": "string",
+                "description": "Login Email of the Vault.\n"
+            },
+            "masterPassword": {
+                "type": "string",
+                "description": "Master password of the Vault. Do not commit this information in Git unless you know what you're doing. Prefer using a\nTerraform `variable {}` in order to inject this value from the environment.\n"
+            },
+            "server": {
+                "type": "string",
+                "description": "Bitwarden Server URL (default: https://vault.bitwarden.com).\n"
+            },
+            "sessionKey": {
+                "type": "string",
+                "description": "(EXPERIMENTAL) A Bitwarden Session Key.\n"
+            },
+            "vaultPath": {
+                "type": "string",
+                "description": "Alternative directory for storing the Vault locally.\n"
+            }
+        },
+        "defaults": [
+            "email",
+            "server"
+        ]
+    },
+    "types": {
+        "bitwarden:index/ItemLoginAttachment:ItemLoginAttachment": {
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Identifier.\n"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sizeName": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "fileName",
+                        "id",
+                        "size",
+                        "sizeName",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "bitwarden:index/ItemLoginField:ItemLoginField": {
+            "properties": {
+                "boolean": {
+                    "type": "boolean",
+                    "description": "Value of a boolean field.\n"
+                },
+                "hidden": {
+                    "type": "string",
+                    "description": "Value of a hidden text field.\n"
+                },
+                "linked": {
+                    "type": "string",
+                    "description": "Value of a linked field.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the field.\n"
+                },
+                "text": {
+                    "type": "string",
+                    "description": "Value of a text field.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ]
+        },
+        "bitwarden:index/ItemLoginUri:ItemLoginUri": {
+            "properties": {
+                "match": {
+                    "type": "string",
+                    "description": "URI Match\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "URI Value\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "value"
+            ]
+        },
+        "bitwarden:index/ItemSecureNoteAttachment:ItemSecureNoteAttachment": {
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Identifier.\n"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sizeName": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "fileName",
+                        "id",
+                        "size",
+                        "sizeName",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "bitwarden:index/ItemSecureNoteField:ItemSecureNoteField": {
+            "properties": {
+                "boolean": {
+                    "type": "boolean",
+                    "description": "Value of a boolean field.\n"
+                },
+                "hidden": {
+                    "type": "string",
+                    "description": "Value of a hidden text field.\n"
+                },
+                "linked": {
+                    "type": "string",
+                    "description": "Value of a linked field.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the field.\n"
+                },
+                "text": {
+                    "type": "string",
+                    "description": "Value of a text field.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ]
+        },
+        "bitwarden:index/getItemLoginAttachment:getItemLoginAttachment": {
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Identifier.\n"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sizeName": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "fileName",
+                "id",
+                "size",
+                "sizeName",
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "bitwarden:index/getItemLoginField:getItemLoginField": {
+            "properties": {
+                "boolean": {
+                    "type": "boolean"
+                },
+                "hidden": {
+                    "type": "string"
+                },
+                "linked": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "bitwarden:index/getItemLoginUri:getItemLoginUri": {
+            "properties": {
+                "match": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "value"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "bitwarden:index/getItemSecureNoteAttachment:getItemSecureNoteAttachment": {
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Identifier.\n"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "sizeName": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "fileName",
+                "id",
+                "size",
+                "sizeName",
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "bitwarden:index/getItemSecureNoteField:getItemSecureNoteField": {
+            "properties": {
+                "boolean": {
+                    "type": "boolean"
+                },
+                "hidden": {
+                    "type": "string"
+                },
+                "linked": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the bitwarden package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "clientId": {
+                "type": "string",
+                "description": "Client ID.\n"
+            },
+            "clientSecret": {
+                "type": "string",
+                "description": "Client Secret. Do not commit this information in Git unless you know what you're doing. Prefer using a Terraform\n`variable {}` in order to inject this value from the environment.\n"
+            },
+            "email": {
+                "type": "string",
+                "description": "Login Email of the Vault.\n"
+            },
+            "masterPassword": {
+                "type": "string",
+                "description": "Master password of the Vault. Do not commit this information in Git unless you know what you're doing. Prefer using a\nTerraform `variable {}` in order to inject this value from the environment.\n"
+            },
+            "server": {
+                "type": "string",
+                "description": "Bitwarden Server URL (default: https://vault.bitwarden.com).\n"
+            },
+            "sessionKey": {
+                "type": "string",
+                "description": "(EXPERIMENTAL) A Bitwarden Session Key.\n"
+            },
+            "vaultPath": {
+                "type": "string",
+                "description": "Alternative directory for storing the Vault locally.\n"
+            }
+        },
+        "required": [
+            "email",
+            "server"
+        ],
+        "inputProperties": {
+            "clientId": {
+                "type": "string",
+                "description": "Client ID.\n"
+            },
+            "clientSecret": {
+                "type": "string",
+                "description": "Client Secret. Do not commit this information in Git unless you know what you're doing. Prefer using a Terraform\n`variable {}` in order to inject this value from the environment.\n"
+            },
+            "email": {
+                "type": "string",
+                "description": "Login Email of the Vault.\n"
+            },
+            "masterPassword": {
+                "type": "string",
+                "description": "Master password of the Vault. Do not commit this information in Git unless you know what you're doing. Prefer using a\nTerraform `variable {}` in order to inject this value from the environment.\n"
+            },
+            "server": {
+                "type": "string",
+                "description": "Bitwarden Server URL (default: https://vault.bitwarden.com).\n"
+            },
+            "sessionKey": {
+                "type": "string",
+                "description": "(EXPERIMENTAL) A Bitwarden Session Key.\n"
+            },
+            "vaultPath": {
+                "type": "string",
+                "description": "Alternative directory for storing the Vault locally.\n"
+            }
+        },
+        "requiredInputs": [
+            "email",
+            "server"
+        ]
+    },
+    "resources": {
+        "bitwarden:index/attachment:Attachment": {
+            "description": "(EXPERIMENTAL) Manages a Vault item's attachment.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@maienm/pulumi-bitwarden\";\n\nconst vpnCredentials = new bitwarden.ItemLogin(\"vpnCredentials\", {username: \"admin\"});\nconst vpnConfig = new bitwarden.Attachment(\"vpnConfig\", {\n    file: \"./vpn-config.txt\",\n    itemId: vpnCredentials.id,\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\nvpn_credentials = bitwarden.ItemLogin(\"vpnCredentials\", username=\"admin\")\nvpn_config = bitwarden.Attachment(\"vpnConfig\",\n    file=\"./vpn-config.txt\",\n    item_id=vpn_credentials.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = MaienM.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var vpnCredentials = new Bitwarden.ItemLogin(\"vpnCredentials\", new()\n    {\n        Username = \"admin\",\n    });\n\n    var vpnConfig = new Bitwarden.Attachment(\"vpnConfig\", new()\n    {\n        File = \"./vpn-config.txt\",\n        ItemId = vpnCredentials.Id,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tvpnCredentials, err := bitwarden.NewItemLogin(ctx, \"vpnCredentials\", \u0026bitwarden.ItemLoginArgs{\n\t\t\tUsername: pulumi.String(\"admin\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = bitwarden.NewAttachment(ctx, \"vpnConfig\", \u0026bitwarden.AttachmentArgs{\n\t\t\tFile:   pulumi.String(\"./vpn-config.txt\"),\n\t\t\tItemId: vpnCredentials.ID(),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.ItemLogin;\nimport com.pulumi.bitwarden.ItemLoginArgs;\nimport com.pulumi.bitwarden.Attachment;\nimport com.pulumi.bitwarden.AttachmentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var vpnCredentials = new ItemLogin(\"vpnCredentials\", ItemLoginArgs.builder()        \n            .username(\"admin\")\n            .build());\n\n        var vpnConfig = new Attachment(\"vpnConfig\", AttachmentArgs.builder()        \n            .file(\"./vpn-config.txt\")\n            .itemId(vpnCredentials.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  vpnCredentials:\n    type: bitwarden:ItemLogin\n    properties:\n      username: admin\n  vpnConfig:\n    type: bitwarden:Attachment\n    properties:\n      file: ./vpn-config.txt\n      itemId: ${vpnCredentials.id}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the identifier of the resource and its attachment you want to import# $ bw list items --search \"SSH Credentials\" | jq\n\n'.[]' ? Master password[hidden] # \u003e { \u003e\n\n \"object\"\"item\", \u003e\n\n \"id\"\"59575167-4d36-5a58-466e-d9021926df8a\", \u003e\n\n [...] \u003e\n\n \"name\"\"My Top Secret SSH Credentials\", \u003e\n\n \"attachments\"[ \u003e\n\n\n\n { \u003e\n\n\n\n\n\n id\"\"4d6a41364d6a4dea8ddb1a\", \u003e\n\n\n\n\n\n \"fileName\"\"ssh_private.key\", \u003e\n\n\n\n\n\n \"size\"\"1743\", \u003e\n\n\n\n\n\n \"sizeName\"\"1.74 KB\", \u003e\n\n\n\n\n\n \"url\"\"https://vault.bitwarden.com/attachments/59575167-4d36-5a58-466e-d9021926df8a/4d6a41364d6a4dea8ddb1a\" \u003e\n\n\n\n } \u003e\n\n ], \u003e } resource \"bitwarden_attachment\" \"ssh_private\" {\n\n # ...instance configuration... } Provide both identifiers to Terraform in the form of '\u003citem_id\u003e/\u003cattachment_id\u003e'\n\n```sh\n $ pulumi import bitwarden:index/attachment:Attachment ssh_private 59575167-4d36-5a58-466e-d9021926df8a/4d6a41364d6a4dea8ddb1a\n```\n\n ",
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "description": "Path to the content of the attachment.\n"
+                },
+                "fileName": {
+                    "type": "string",
+                    "description": "File name\n"
+                },
+                "itemId": {
+                    "type": "string",
+                    "description": "Identifier of the item the attachment belongs to\n"
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Size in bytes\n"
+                },
+                "sizeName": {
+                    "type": "string",
+                    "description": "Size as string\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL\n"
+                }
+            },
+            "required": [
+                "file",
+                "fileName",
+                "itemId",
+                "size",
+                "sizeName",
+                "url"
+            ],
+            "inputProperties": {
+                "file": {
+                    "type": "string",
+                    "description": "Path to the content of the attachment.\n",
+                    "willReplaceOnChanges": true
+                },
+                "itemId": {
+                    "type": "string",
+                    "description": "Identifier of the item the attachment belongs to\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "file",
+                "itemId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Attachment resources.\n",
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "description": "Path to the content of the attachment.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "File name\n"
+                    },
+                    "itemId": {
+                        "type": "string",
+                        "description": "Identifier of the item the attachment belongs to\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "size": {
+                        "type": "string",
+                        "description": "Size in bytes\n"
+                    },
+                    "sizeName": {
+                        "type": "string",
+                        "description": "Size as string\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "URL\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "bitwarden:index/folder:Folder": {
+            "description": "Manages a folder.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@maienm/pulumi-bitwarden\";\n\nconst cloudCredentials = new bitwarden.Folder(\"cloudCredentials\", {});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\ncloud_credentials = bitwarden.Folder(\"cloudCredentials\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = MaienM.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var cloudCredentials = new Bitwarden.Folder(\"cloudCredentials\");\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.NewFolder(ctx, \"cloudCredentials\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.Folder;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var cloudCredentials = new Folder(\"cloudCredentials\");\n\n    }\n}\n```\n```yaml\nresources:\n  cloudCredentials:\n    type: bitwarden:Folder\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the identifier of the resource you want to import# $ bw list folders --search \"My Cloud Credentials\" | jq\n\n'.[] .id' ? Master password[hidden] # \u003e \"94d858f7-03b9-4897-bee1-9af465988932\" # resource \"bitwarden_folder\" \"cloud_credentials\" {\n\n name = \"My Cloud Credentials\" } Provide this identifier to Terraform\n\n```sh\n $ pulumi import bitwarden:index/folder:Folder cloud_credentials 94d858f7-03b9-4897-bee1-9af465988932\n```\n\n ",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "object": {
+                    "type": "string",
+                    "description": "INTERNAL USE\n"
+                }
+            },
+            "required": [
+                "name",
+                "object"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Folder resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name.\n"
+                    },
+                    "object": {
+                        "type": "string",
+                        "description": "INTERNAL USE\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "bitwarden:index/itemLogin:ItemLogin": {
+            "description": "Manages a Vault Login item.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@maienm/pulumi-bitwarden\";\n\nconst administrative_user = new bitwarden.ItemLogin(\"administrative-user\", {\n    collectionIds: [\"c74d6067-50b0-4427-bec8-483f3270fde3\"],\n    favorite: true,\n    fields: [\n        {\n            name: \"this-is-a-text-field\",\n            text: \"text-value\",\n        },\n        {\n            boolean: true,\n            name: \"this-is-a-boolean-field\",\n        },\n        {\n            hidden: \"text-value\",\n            name: \"this-is-a-hidden-field\",\n        },\n    ],\n    folderId: \"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n    notes: \"\u003csensitive\u003e\",\n    organizationId: \"54421e78-95cb-40c4-a257-17231a7b6207\",\n    password: \"\u003csensitive\u003e\",\n    totp: \"\u003csensitive\u003e\",\n    username: \"admin\",\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\nadministrative_user = bitwarden.ItemLogin(\"administrative-user\",\n    collection_ids=[\"c74d6067-50b0-4427-bec8-483f3270fde3\"],\n    favorite=True,\n    fields=[\n        bitwarden.ItemLoginFieldArgs(\n            name=\"this-is-a-text-field\",\n            text=\"text-value\",\n        ),\n        bitwarden.ItemLoginFieldArgs(\n            boolean=True,\n            name=\"this-is-a-boolean-field\",\n        ),\n        bitwarden.ItemLoginFieldArgs(\n            hidden=\"text-value\",\n            name=\"this-is-a-hidden-field\",\n        ),\n    ],\n    folder_id=\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n    notes=\"\u003csensitive\u003e\",\n    organization_id=\"54421e78-95cb-40c4-a257-17231a7b6207\",\n    password=\"\u003csensitive\u003e\",\n    totp=\"\u003csensitive\u003e\",\n    username=\"admin\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = MaienM.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var administrative_user = new Bitwarden.ItemLogin(\"administrative-user\", new()\n    {\n        CollectionIds = new[]\n        {\n            \"c74d6067-50b0-4427-bec8-483f3270fde3\",\n        },\n        Favorite = true,\n        Fields = new[]\n        {\n            new Bitwarden.Inputs.ItemLoginFieldArgs\n            {\n                Name = \"this-is-a-text-field\",\n                Text = \"text-value\",\n            },\n            new Bitwarden.Inputs.ItemLoginFieldArgs\n            {\n                Boolean = true,\n                Name = \"this-is-a-boolean-field\",\n            },\n            new Bitwarden.Inputs.ItemLoginFieldArgs\n            {\n                Hidden = \"text-value\",\n                Name = \"this-is-a-hidden-field\",\n            },\n        },\n        FolderId = \"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n        Notes = \"\u003csensitive\u003e\",\n        OrganizationId = \"54421e78-95cb-40c4-a257-17231a7b6207\",\n        Password = \"\u003csensitive\u003e\",\n        Totp = \"\u003csensitive\u003e\",\n        Username = \"admin\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.NewItemLogin(ctx, \"administrative-user\", \u0026bitwarden.ItemLoginArgs{\n\t\t\tCollectionIds: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"c74d6067-50b0-4427-bec8-483f3270fde3\"),\n\t\t\t},\n\t\t\tFavorite: pulumi.Bool(true),\n\t\t\tFields: bitwarden.ItemLoginFieldArray{\n\t\t\t\t\u0026bitwarden.ItemLoginFieldArgs{\n\t\t\t\t\tName: pulumi.String(\"this-is-a-text-field\"),\n\t\t\t\t\tText: pulumi.String(\"text-value\"),\n\t\t\t\t},\n\t\t\t\t\u0026bitwarden.ItemLoginFieldArgs{\n\t\t\t\t\tBoolean: pulumi.Bool(true),\n\t\t\t\t\tName:    pulumi.String(\"this-is-a-boolean-field\"),\n\t\t\t\t},\n\t\t\t\t\u0026bitwarden.ItemLoginFieldArgs{\n\t\t\t\t\tHidden: pulumi.String(\"text-value\"),\n\t\t\t\t\tName:   pulumi.String(\"this-is-a-hidden-field\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tFolderId:       pulumi.String(\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\"),\n\t\t\tNotes:          pulumi.String(\"\u003csensitive\u003e\"),\n\t\t\tOrganizationId: pulumi.String(\"54421e78-95cb-40c4-a257-17231a7b6207\"),\n\t\t\tPassword:       pulumi.String(\"\u003csensitive\u003e\"),\n\t\t\tTotp:           pulumi.String(\"\u003csensitive\u003e\"),\n\t\t\tUsername:       pulumi.String(\"admin\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.ItemLogin;\nimport com.pulumi.bitwarden.ItemLoginArgs;\nimport com.pulumi.bitwarden.inputs.ItemLoginFieldArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var administrative_user = new ItemLogin(\"administrative-user\", ItemLoginArgs.builder()        \n            .collectionIds(\"c74d6067-50b0-4427-bec8-483f3270fde3\")\n            .favorite(true)\n            .fields(            \n                ItemLoginFieldArgs.builder()\n                    .name(\"this-is-a-text-field\")\n                    .text(\"text-value\")\n                    .build(),\n                ItemLoginFieldArgs.builder()\n                    .boolean_(true)\n                    .name(\"this-is-a-boolean-field\")\n                    .build(),\n                ItemLoginFieldArgs.builder()\n                    .hidden(\"text-value\")\n                    .name(\"this-is-a-hidden-field\")\n                    .build())\n            .folderId(\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\")\n            .notes(\"\u003csensitive\u003e\")\n            .organizationId(\"54421e78-95cb-40c4-a257-17231a7b6207\")\n            .password(\"\u003csensitive\u003e\")\n            .totp(\"\u003csensitive\u003e\")\n            .username(\"admin\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  administrative-user:\n    type: bitwarden:ItemLogin\n    properties:\n      collectionIds:\n        - c74d6067-50b0-4427-bec8-483f3270fde3\n      favorite: true\n      fields:\n        - name: this-is-a-text-field\n          text: text-value\n        - boolean: true\n          name: this-is-a-boolean-field\n        - hidden: text-value\n          name: this-is-a-hidden-field\n      folderId: 3b985a2f-0eed-461e-a5ac-adf5015b00c4\n      notes: \u003csensitive\u003e\n      organizationId: 54421e78-95cb-40c4-a257-17231a7b6207\n      password: \u003csensitive\u003e\n      totp: \u003csensitive\u003e\n      username: admin\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the identifier of the resource you want to import# $ bw list items --search \"Mysql Root Credentials\" | jq\n\n'.[] .id' ? Master password[hidden] # \u003e \"ec4e447f-9aed-4203-b834-c8f3848828f7\" # Provide this identifier to Terraform\n\n```sh\n $ pulumi import bitwarden:index/itemLogin:ItemLogin administrative-user ec4e447f-9aed-4203-b834-c8f3848828f7\n```\n\n ",
+            "properties": {
+                "attachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemLoginAttachment:ItemLoginAttachment"
+                    },
+                    "description": "List of item attachments.\n"
+                },
+                "collectionIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Identifier of the collections the item belongs to.\n"
+                },
+                "creationDate": {
+                    "type": "string",
+                    "description": "Date the item was created.\n"
+                },
+                "deletedDate": {
+                    "type": "string",
+                    "description": "Date the item was deleted.\n"
+                },
+                "favorite": {
+                    "type": "boolean",
+                    "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemLoginField:ItemLoginField"
+                    },
+                    "description": "Extra fields.\n",
+                    "secret": true
+                },
+                "folderId": {
+                    "type": "string",
+                    "description": "Identifier of the folder.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Notes.\n",
+                    "secret": true
+                },
+                "object": {
+                    "type": "string",
+                    "description": "INTERNAL USE\n"
+                },
+                "organizationId": {
+                    "type": "string",
+                    "description": "Identifier of the organization.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Login password.\n",
+                    "secret": true
+                },
+                "reprompt": {
+                    "type": "boolean",
+                    "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                },
+                "revisionDate": {
+                    "type": "string",
+                    "description": "Last time the item was updated.\n"
+                },
+                "totp": {
+                    "type": "string",
+                    "description": "Verification code.\n",
+                    "secret": true
+                },
+                "type": {
+                    "type": "integer",
+                    "description": "INTERNAL USE\n"
+                },
+                "uris": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemLoginUri:ItemLoginUri"
+                    },
+                    "description": "URI.\n"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Login username.\n",
+                    "secret": true
+                }
+            },
+            "required": [
+                "attachments",
+                "creationDate",
+                "deletedDate",
+                "name",
+                "object",
+                "revisionDate",
+                "type"
+            ],
+            "inputProperties": {
+                "collectionIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Identifier of the collections the item belongs to.\n"
+                },
+                "favorite": {
+                    "type": "boolean",
+                    "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemLoginField:ItemLoginField"
+                    },
+                    "description": "Extra fields.\n",
+                    "secret": true
+                },
+                "folderId": {
+                    "type": "string",
+                    "description": "Identifier of the folder.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Notes.\n",
+                    "secret": true
+                },
+                "organizationId": {
+                    "type": "string",
+                    "description": "Identifier of the organization.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Login password.\n",
+                    "secret": true
+                },
+                "reprompt": {
+                    "type": "boolean",
+                    "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                },
+                "totp": {
+                    "type": "string",
+                    "description": "Verification code.\n",
+                    "secret": true
+                },
+                "uris": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemLoginUri:ItemLoginUri"
+                    },
+                    "description": "URI.\n"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Login username.\n",
+                    "secret": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ItemLogin resources.\n",
+                "properties": {
+                    "attachments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/ItemLoginAttachment:ItemLoginAttachment"
+                        },
+                        "description": "List of item attachments.\n"
+                    },
+                    "collectionIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Identifier of the collections the item belongs to.\n"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "description": "Date the item was created.\n"
+                    },
+                    "deletedDate": {
+                        "type": "string",
+                        "description": "Date the item was deleted.\n"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/ItemLoginField:ItemLoginField"
+                        },
+                        "description": "Extra fields.\n",
+                        "secret": true
+                    },
+                    "folderId": {
+                        "type": "string",
+                        "description": "Identifier of the folder.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Notes.\n",
+                        "secret": true
+                    },
+                    "object": {
+                        "type": "string",
+                        "description": "INTERNAL USE\n"
+                    },
+                    "organizationId": {
+                        "type": "string",
+                        "description": "Identifier of the organization.\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Login password.\n",
+                        "secret": true
+                    },
+                    "reprompt": {
+                        "type": "boolean",
+                        "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                    },
+                    "revisionDate": {
+                        "type": "string",
+                        "description": "Last time the item was updated.\n"
+                    },
+                    "totp": {
+                        "type": "string",
+                        "description": "Verification code.\n",
+                        "secret": true
+                    },
+                    "type": {
+                        "type": "integer",
+                        "description": "INTERNAL USE\n"
+                    },
+                    "uris": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/ItemLoginUri:ItemLoginUri"
+                        },
+                        "description": "URI.\n"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Login username.\n",
+                        "secret": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "bitwarden:index/itemSecureNote:ItemSecureNote": {
+            "description": "Manages a Vault Secure Note item.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@maienm/pulumi-bitwarden\";\n\nconst exampleservice_configuration = new bitwarden.ItemSecureNote(\"exampleservice-configuration\", {\n    collectionIds: [\"c74d6067-50b0-4427-bec8-483f3270fde3\"],\n    favorite: true,\n    fields: [\n        {\n            name: \"this-is-a-text-field\",\n            text: \"text-value\",\n        },\n        {\n            boolean: true,\n            name: \"this-is-a-boolean-field\",\n        },\n        {\n            hidden: \"text-value\",\n            name: \"this-is-a-hidden-field\",\n        },\n    ],\n    folderId: \"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n    notes: `[global]\nsecret = \"\u003csensitive\u003e\"\n\n`,\n    organizationId: \"54421e78-95cb-40c4-a257-17231a7b6207\",\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\nexampleservice_configuration = bitwarden.ItemSecureNote(\"exampleservice-configuration\",\n    collection_ids=[\"c74d6067-50b0-4427-bec8-483f3270fde3\"],\n    favorite=True,\n    fields=[\n        bitwarden.ItemSecureNoteFieldArgs(\n            name=\"this-is-a-text-field\",\n            text=\"text-value\",\n        ),\n        bitwarden.ItemSecureNoteFieldArgs(\n            boolean=True,\n            name=\"this-is-a-boolean-field\",\n        ),\n        bitwarden.ItemSecureNoteFieldArgs(\n            hidden=\"text-value\",\n            name=\"this-is-a-hidden-field\",\n        ),\n    ],\n    folder_id=\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n    notes=\"\"\"[global]\nsecret = \"\u003csensitive\u003e\"\n\n\"\"\",\n    organization_id=\"54421e78-95cb-40c4-a257-17231a7b6207\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = MaienM.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var exampleservice_configuration = new Bitwarden.ItemSecureNote(\"exampleservice-configuration\", new()\n    {\n        CollectionIds = new[]\n        {\n            \"c74d6067-50b0-4427-bec8-483f3270fde3\",\n        },\n        Favorite = true,\n        Fields = new[]\n        {\n            new Bitwarden.Inputs.ItemSecureNoteFieldArgs\n            {\n                Name = \"this-is-a-text-field\",\n                Text = \"text-value\",\n            },\n            new Bitwarden.Inputs.ItemSecureNoteFieldArgs\n            {\n                Boolean = true,\n                Name = \"this-is-a-boolean-field\",\n            },\n            new Bitwarden.Inputs.ItemSecureNoteFieldArgs\n            {\n                Hidden = \"text-value\",\n                Name = \"this-is-a-hidden-field\",\n            },\n        },\n        FolderId = \"3b985a2f-0eed-461e-a5ac-adf5015b00c4\",\n        Notes = @\"[global]\nsecret = \"\"\u003csensitive\u003e\"\"\n\n\",\n        OrganizationId = \"54421e78-95cb-40c4-a257-17231a7b6207\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.NewItemSecureNote(ctx, \"exampleservice-configuration\", \u0026bitwarden.ItemSecureNoteArgs{\n\t\t\tCollectionIds: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"c74d6067-50b0-4427-bec8-483f3270fde3\"),\n\t\t\t},\n\t\t\tFavorite: pulumi.Bool(true),\n\t\t\tFields: bitwarden.ItemSecureNoteFieldArray{\n\t\t\t\t\u0026bitwarden.ItemSecureNoteFieldArgs{\n\t\t\t\t\tName: pulumi.String(\"this-is-a-text-field\"),\n\t\t\t\t\tText: pulumi.String(\"text-value\"),\n\t\t\t\t},\n\t\t\t\t\u0026bitwarden.ItemSecureNoteFieldArgs{\n\t\t\t\t\tBoolean: pulumi.Bool(true),\n\t\t\t\t\tName:    pulumi.String(\"this-is-a-boolean-field\"),\n\t\t\t\t},\n\t\t\t\t\u0026bitwarden.ItemSecureNoteFieldArgs{\n\t\t\t\t\tHidden: pulumi.String(\"text-value\"),\n\t\t\t\t\tName:   pulumi.String(\"this-is-a-hidden-field\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tFolderId:       pulumi.String(\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\"),\n\t\t\tNotes:          pulumi.String(\"[global]\\nsecret = \\\"\u003csensitive\u003e\\\"\\n\\n\"),\n\t\t\tOrganizationId: pulumi.String(\"54421e78-95cb-40c4-a257-17231a7b6207\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.ItemSecureNote;\nimport com.pulumi.bitwarden.ItemSecureNoteArgs;\nimport com.pulumi.bitwarden.inputs.ItemSecureNoteFieldArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var exampleservice_configuration = new ItemSecureNote(\"exampleservice-configuration\", ItemSecureNoteArgs.builder()        \n            .collectionIds(\"c74d6067-50b0-4427-bec8-483f3270fde3\")\n            .favorite(true)\n            .fields(            \n                ItemSecureNoteFieldArgs.builder()\n                    .name(\"this-is-a-text-field\")\n                    .text(\"text-value\")\n                    .build(),\n                ItemSecureNoteFieldArgs.builder()\n                    .boolean_(true)\n                    .name(\"this-is-a-boolean-field\")\n                    .build(),\n                ItemSecureNoteFieldArgs.builder()\n                    .hidden(\"text-value\")\n                    .name(\"this-is-a-hidden-field\")\n                    .build())\n            .folderId(\"3b985a2f-0eed-461e-a5ac-adf5015b00c4\")\n            .notes(\"\"\"\n[global]\nsecret = \"\u003csensitive\u003e\"\n\n            \"\"\")\n            .organizationId(\"54421e78-95cb-40c4-a257-17231a7b6207\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  exampleservice-configuration:\n    type: bitwarden:ItemSecureNote\n    properties:\n      collectionIds:\n        - c74d6067-50b0-4427-bec8-483f3270fde3\n      favorite: true\n      fields:\n        - name: this-is-a-text-field\n          text: text-value\n        - boolean: true\n          name: this-is-a-boolean-field\n        - hidden: text-value\n          name: this-is-a-hidden-field\n      folderId: 3b985a2f-0eed-461e-a5ac-adf5015b00c4\n      notes: |+\n        [global]\n        secret = \"\u003csensitive\u003e\"\n\n      organizationId: 54421e78-95cb-40c4-a257-17231a7b6207\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the identifier of the resource you want to import# $ bw list items --search \"SSH Private Key\" | jq\n\n'.[] .id' ? Master password[hidden] # \u003e \"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\" # Provide this identifier to Terraform\n\n```sh\n $ pulumi import bitwarden:index/itemSecureNote:ItemSecureNote ssh-private-key a9e19f26-1b8c-4568-bc09-191e2cf56ed6\n```\n\n ",
+            "properties": {
+                "attachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemSecureNoteAttachment:ItemSecureNoteAttachment"
+                    },
+                    "description": "List of item attachments.\n"
+                },
+                "collectionIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Identifier of the collections the item belongs to.\n"
+                },
+                "creationDate": {
+                    "type": "string",
+                    "description": "Date the item was created.\n"
+                },
+                "deletedDate": {
+                    "type": "string",
+                    "description": "Date the item was deleted.\n"
+                },
+                "favorite": {
+                    "type": "boolean",
+                    "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemSecureNoteField:ItemSecureNoteField"
+                    },
+                    "description": "Extra fields.\n",
+                    "secret": true
+                },
+                "folderId": {
+                    "type": "string",
+                    "description": "Identifier of the folder.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Notes.\n",
+                    "secret": true
+                },
+                "object": {
+                    "type": "string",
+                    "description": "INTERNAL USE\n"
+                },
+                "organizationId": {
+                    "type": "string",
+                    "description": "Identifier of the organization.\n"
+                },
+                "reprompt": {
+                    "type": "boolean",
+                    "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                },
+                "revisionDate": {
+                    "type": "string",
+                    "description": "Last time the item was updated.\n"
+                },
+                "type": {
+                    "type": "integer",
+                    "description": "INTERNAL USE\n"
+                }
+            },
+            "required": [
+                "attachments",
+                "creationDate",
+                "deletedDate",
+                "name",
+                "object",
+                "revisionDate",
+                "type"
+            ],
+            "inputProperties": {
+                "collectionIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Identifier of the collections the item belongs to.\n"
+                },
+                "favorite": {
+                    "type": "boolean",
+                    "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/bitwarden:index/ItemSecureNoteField:ItemSecureNoteField"
+                    },
+                    "description": "Extra fields.\n",
+                    "secret": true
+                },
+                "folderId": {
+                    "type": "string",
+                    "description": "Identifier of the folder.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Notes.\n",
+                    "secret": true
+                },
+                "organizationId": {
+                    "type": "string",
+                    "description": "Identifier of the organization.\n"
+                },
+                "reprompt": {
+                    "type": "boolean",
+                    "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ItemSecureNote resources.\n",
+                "properties": {
+                    "attachments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/ItemSecureNoteAttachment:ItemSecureNoteAttachment"
+                        },
+                        "description": "List of item attachments.\n"
+                    },
+                    "collectionIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Identifier of the collections the item belongs to.\n"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "description": "Date the item was created.\n"
+                    },
+                    "deletedDate": {
+                        "type": "string",
+                        "description": "Date the item was deleted.\n"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/ItemSecureNoteField:ItemSecureNoteField"
+                        },
+                        "description": "Extra fields.\n",
+                        "secret": true
+                    },
+                    "folderId": {
+                        "type": "string",
+                        "description": "Identifier of the folder.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Notes.\n",
+                        "secret": true
+                    },
+                    "object": {
+                        "type": "string",
+                        "description": "INTERNAL USE\n"
+                    },
+                    "organizationId": {
+                        "type": "string",
+                        "description": "Identifier of the organization.\n"
+                    },
+                    "reprompt": {
+                        "type": "boolean",
+                        "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                    },
+                    "revisionDate": {
+                        "type": "string",
+                        "description": "Last time the item was updated.\n"
+                    },
+                    "type": {
+                        "type": "integer",
+                        "description": "INTERNAL USE\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "bitwarden:index/getAttachment:getAttachment": {
+            "description": "(EXPERIMENTAL) Use this data source to get the content of an existing item's attachment.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@pulumi/bitwarden\";\n\nconst sshPrivateKey = bitwarden.getAttachment({\n    id: \"4d6a41364d6a4dea8ddb1a\",\n    itemId: \"59575167-4d36-5a58-466e-d9021926df8a\",\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\nssh_private_key = bitwarden.get_attachment(id=\"4d6a41364d6a4dea8ddb1a\",\n    item_id=\"59575167-4d36-5a58-466e-d9021926df8a\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = Pulumi.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var sshPrivateKey = Bitwarden.GetAttachment.Invoke(new()\n    {\n        Id = \"4d6a41364d6a4dea8ddb1a\",\n        ItemId = \"59575167-4d36-5a58-466e-d9021926df8a\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.LookupAttachment(ctx, \u0026bitwarden.LookupAttachmentArgs{\n\t\t\tId:     \"4d6a41364d6a4dea8ddb1a\",\n\t\t\tItemId: \"59575167-4d36-5a58-466e-d9021926df8a\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.BitwardenFunctions;\nimport com.pulumi.bitwarden.inputs.GetAttachmentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var sshPrivateKey = BitwardenFunctions.getAttachment(GetAttachmentArgs.builder()\n            .id(\"4d6a41364d6a4dea8ddb1a\")\n            .itemId(\"59575167-4d36-5a58-466e-d9021926df8a\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  sshPrivateKey:\n    fn::invoke:\n      Function: bitwarden:getAttachment\n      Arguments:\n        id: 4d6a41364d6a4dea8ddb1a\n        itemId: 59575167-4d36-5a58-466e-d9021926df8a\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getAttachment.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    },
+                    "itemId": {
+                        "type": "string",
+                        "description": "Identifier of the item the attachment belongs to\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "itemId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAttachment.\n",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "Content of the attachment\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    },
+                    "itemId": {
+                        "type": "string",
+                        "description": "Identifier of the item the attachment belongs to\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "content",
+                    "id",
+                    "itemId"
+                ]
+            }
+        },
+        "bitwarden:index/getItemLogin:getItemLogin": {
+            "description": "Use this data source to get information on an existing Login.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@pulumi/bitwarden\";\n\nconst databaseCredentials = bitwarden.getItemLogin({\n    id: \"ec4e447f-9aed-4203-b834-c8f3848828f7\",\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\ndatabase_credentials = bitwarden.get_item_login(id=\"ec4e447f-9aed-4203-b834-c8f3848828f7\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = Pulumi.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var databaseCredentials = Bitwarden.GetItemLogin.Invoke(new()\n    {\n        Id = \"ec4e447f-9aed-4203-b834-c8f3848828f7\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.LookupItemLogin(ctx, \u0026bitwarden.LookupItemLoginArgs{\n\t\t\tId: \"ec4e447f-9aed-4203-b834-c8f3848828f7\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.BitwardenFunctions;\nimport com.pulumi.bitwarden.inputs.GetItemLoginArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var databaseCredentials = BitwardenFunctions.getItemLogin(GetItemLoginArgs.builder()\n            .id(\"ec4e447f-9aed-4203-b834-c8f3848828f7\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  databaseCredentials:\n    fn::invoke:\n      Function: bitwarden:getItemLogin\n      Arguments:\n        id: ec4e447f-9aed-4203-b834-c8f3848828f7\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getItemLogin.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getItemLogin.\n",
+                "properties": {
+                    "attachments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/getItemLoginAttachment:getItemLoginAttachment"
+                        },
+                        "description": "List of item attachments.\n"
+                    },
+                    "collectionIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Identifier of the collections the item belongs to.\n"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "description": "Date the item was created.\n"
+                    },
+                    "deletedDate": {
+                        "type": "string",
+                        "description": "Date the item was deleted.\n"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/getItemLoginField:getItemLoginField"
+                        },
+                        "description": "Extra fields.\n",
+                        "secret": true
+                    },
+                    "folderId": {
+                        "type": "string",
+                        "description": "Identifier of the folder.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Notes.\n",
+                        "secret": true
+                    },
+                    "object": {
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "type": "string",
+                        "description": "Identifier of the organization.\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Login password.\n",
+                        "secret": true
+                    },
+                    "reprompt": {
+                        "type": "boolean",
+                        "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                    },
+                    "revisionDate": {
+                        "type": "string",
+                        "description": "Last time the item was updated.\n"
+                    },
+                    "totp": {
+                        "type": "string",
+                        "description": "Verification code.\n",
+                        "secret": true
+                    },
+                    "type": {
+                        "type": "integer"
+                    },
+                    "uris": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/getItemLoginUri:getItemLoginUri"
+                        },
+                        "description": "URI.\n"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Login username.\n",
+                        "secret": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "attachments",
+                    "collectionIds",
+                    "creationDate",
+                    "deletedDate",
+                    "favorite",
+                    "fields",
+                    "folderId",
+                    "id",
+                    "name",
+                    "notes",
+                    "object",
+                    "organizationId",
+                    "password",
+                    "reprompt",
+                    "revisionDate",
+                    "totp",
+                    "type",
+                    "uris",
+                    "username"
+                ]
+            }
+        },
+        "bitwarden:index/getItemSecureNote:getItemSecureNote": {
+            "description": "Use this data source to get information on an existing Secure Note.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as bitwarden from \"@pulumi/bitwarden\";\n\nconst sshNotes = bitwarden.getItemSecureNote({\n    id: \"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\",\n});\n```\n```python\nimport pulumi\nimport pulumi_bitwarden as bitwarden\n\nssh_notes = bitwarden.get_item_secure_note(id=\"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Bitwarden = Pulumi.Bitwarden;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var sshNotes = Bitwarden.GetItemSecureNote.Invoke(new()\n    {\n        Id = \"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/MaienM/pulumi-bitwarden/sdk/go/bitwarden\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := bitwarden.LookupItemSecureNote(ctx, \u0026bitwarden.LookupItemSecureNoteArgs{\n\t\t\tId: \"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.bitwarden.BitwardenFunctions;\nimport com.pulumi.bitwarden.inputs.GetItemSecureNoteArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var sshNotes = BitwardenFunctions.getItemSecureNote(GetItemSecureNoteArgs.builder()\n            .id(\"a9e19f26-1b8c-4568-bc09-191e2cf56ed6\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  sshNotes:\n    fn::invoke:\n      Function: bitwarden:getItemSecureNote\n      Arguments:\n        id: a9e19f26-1b8c-4568-bc09-191e2cf56ed6\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getItemSecureNote.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getItemSecureNote.\n",
+                "properties": {
+                    "attachments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/getItemSecureNoteAttachment:getItemSecureNoteAttachment"
+                        },
+                        "description": "List of item attachments.\n"
+                    },
+                    "collectionIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Identifier of the collections the item belongs to.\n"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "description": "Date the item was created.\n"
+                    },
+                    "deletedDate": {
+                        "type": "string",
+                        "description": "Date the item was deleted.\n"
+                    },
+                    "favorite": {
+                        "type": "boolean",
+                        "description": "Mark as a Favorite to have item appear at the top of your Vault in the UI.\n"
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/bitwarden:index/getItemSecureNoteField:getItemSecureNoteField"
+                        },
+                        "description": "Extra fields.\n",
+                        "secret": true
+                    },
+                    "folderId": {
+                        "type": "string",
+                        "description": "Identifier of the folder.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Notes.\n",
+                        "secret": true
+                    },
+                    "object": {
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "type": "string",
+                        "description": "Identifier of the organization.\n"
+                    },
+                    "reprompt": {
+                        "type": "boolean",
+                        "description": "Require master password “re-prompt” when displaying secret in the UI.\n"
+                    },
+                    "revisionDate": {
+                        "type": "string",
+                        "description": "Last time the item was updated.\n"
+                    },
+                    "type": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "attachments",
+                    "collectionIds",
+                    "creationDate",
+                    "deletedDate",
+                    "favorite",
+                    "fields",
+                    "folderId",
+                    "id",
+                    "name",
+                    "notes",
+                    "object",
+                    "organizationId",
+                    "reprompt",
+                    "revisionDate",
+                    "type"
+                ]
+            }
+        }
+    }
+}

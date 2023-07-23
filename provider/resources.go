@@ -15,23 +15,20 @@
 package bitwarden
 
 import (
-	
 	"fmt"
 	"path/filepath"
 	"strings"
 
+	"github.com/MaienM/pulumi-bitwarden/provider/pkg/version"
 	"github.com/ettle/strcase"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	shimprovider "github.com/maxlaverse/terraform-provider-bitwarden/shim"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	shimprovider "github.com/maxlaverse/terraform-provider-bitwarden/shim"
-	"github.com/MaienM/pulumi-bitwarden/provider/pkg/version"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
-
-
 
 // all of the token components used below.
 const (
@@ -64,12 +61,11 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 	return nil
 }
 
-
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-// Instantiate the Terraform provider
-	p := shimv2.NewProvider(shimprovider.NewProvider())
-		
+	// Instantiate the Terraform provider
+	p := shimv2.NewProvider(shimprovider.NewProvider(version.Version))
+
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
 		P:    p,
@@ -96,7 +92,7 @@ func Provider() tfbridge.ProviderInfo {
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
 		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
-		Keywords:   []string{
+		Keywords: []string{
 			"pulumi",
 			"bitwarden",
 			"category/infrastructure",
@@ -119,24 +115,16 @@ func Provider() tfbridge.ProviderInfo {
 			// },
 		},
 		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi type. Two examples
-			// are below - the single line form is the common case. The multi-line form is
-			// needed only if you wish to override types or other default options.
-			//
-			// "aws_iam_role": {Tok: makeResource(mainMod(mainMod, "aws_iam_role")}
-			//
-			// "aws_acm_certificate": {
-			// 	Tok: Tok: makeResource(mainMod(mainMod, "aws_acm_certificate"),
-			// 	Fields: map[string]*tfbridge.SchemaInfo{
-			// 		"tags": {Type: tfbridge.MakeType("bitwarden", "Tags")},
-			// 	},
-			// },
+		Resources: map[string]*tfbridge.ResourceInfo{
+			"bitwarden_attachment":       {Tok: makeResource(mainMod, "bitwarden_attachment")},
+			"bitwarden_folder":           {Tok: makeResource(mainMod, "bitwarden_folder")},
+			"bitwarden_item_login":       {Tok: makeResource(mainMod, "bitwarden_item_login")},
+			"bitwarden_item_secure_note": {Tok: makeResource(mainMod, "bitwarden_item_secure_note")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi function. An example
-			// is below.
-			// "aws_ami": {Tok: makeDataSource(mainMod, "aws_ami")},
+			"bitwarden_attachment":       {Tok: makeDataSource(mainMod, "bitwarden_attachment")},
+			"bitwarden_item_login":       {Tok: makeDataSource(mainMod, "bitwarden_item_login")},
+			"bitwarden_item_secure_note": {Tok: makeDataSource(mainMod, "bitwarden_item_secure_note")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@maienm/pulumi-bitwarden",
@@ -182,7 +170,6 @@ func Provider() tfbridge.ProviderInfo {
 			BasePackage: "com.maienm",
 		},
 	}
-
 
 	prov.SetAutonaming(255, "-")
 
