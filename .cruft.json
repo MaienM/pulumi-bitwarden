@@ -1,0 +1,53 @@
+{
+  "template": "https://github.com/MaienM/pulumi-tf-provider-cookiecutter",
+  "commit": "7184e461bc046fecb0ca7badef64227792cbd7cd",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "terraform_provider_name": "bitwarden",
+      "terraform_provider_org": "maxlaverse",
+      "terraform_provider_source": "github.com/maxlaverse/terraform-provider-bitwarden",
+      "terraform_provider_version_or_commit": "0.8.0",
+      "terraform_provider_module": "github.com/maxlaverse/terraform-provider-bitwarden",
+      "terraform_provider_package_name": "internal/provider",
+      "terraform_sdk_version": "2",
+      "provider": "pulumi-bitwarden",
+      "provider_display_name": "Bitwarden",
+      "provider_github_organization": "MaienM",
+      "provider_publisher": "MaienM",
+      "provider_homepage": "https://github.com/MaienM/pulumi-bitwarden",
+      "provider_logoUrl": "https://raw.githubusercontent.com/MaienM/pulumi-bitwarden/main/docs/bitwarden.png",
+      "provider_description": "A Pulumi package for creating and managing Bitwarden resources",
+      "provider_category": "utility",
+      "provider_download_url": "github://api.github.com/MaienM/pulumi-bitwarden",
+      "provider_javascript_package": "@maienm/pulumi-bitwarden",
+      "provider_dotnet_rootnamespace": "MaienM",
+      "provider_python_package": "pulumi_bitwarden",
+      "provider_java_base_package": "com.maienm",
+      "provider_mapping_strategy": "automatic",
+      "provider_naming_strategy": "flat",
+      "go_version": "1.22.5",
+      "create_github_workflows": "yes",
+      "skip_go_mod_tidy": "no",
+      "skip_git_init": "yes",
+      "__pulumi_terraform_plugin_sdkv2_version": "v2.0.0-20240520223432-0c0bf0d65f10",
+      "__pulumi_terraform_bridge_version": "v3.88.0",
+      "__pulumi_terraform_bridge_pf_version": "v0.41.0",
+      "__pulumi_sdk_version": "v3.126.0",
+      "__pulumi_ctl_version": "v0.0.46",
+      "__pulumi_java_version": "v0.13.0",
+      "__go_version_major": "1",
+      "__go_version_minor": "22",
+      "_jinja2_env_vars": {
+        "lstrip_blocks": true,
+        "trim_blocks": true
+      },
+      "_copy_without_render": [],
+      "_extensions": [
+        "local_extensions.LocalExtension"
+      ],
+      "_template": "https://github.com/MaienM/pulumi-tf-provider-cookiecutter"
+    }
+  },
+  "directory": null
+}
